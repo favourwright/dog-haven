@@ -8,7 +8,7 @@
 <script setup>
 import { ref, watch } from 'vue'
 import { useIntersectionObserver } from '@vueuse/core'
-import Image from './Image.vue'
+import Image from './atoms/Image.vue'
 
 const props = defineProps({
   source: {

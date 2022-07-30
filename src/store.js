@@ -14,10 +14,11 @@ const mutations = {
 const actions = {
   // fetch dogs from API https://dog.ceo/api/breeds/image/random/100
   fetchRandomDogs({ commit }) {
-    axios.get('https://dog.ceo/api/breeds/image/random/10')
+    axios.get('https://dog.ceo/api/breeds/image/random/100')
       .then(response => {
         commit('setDogs', response.data.message)
       })
+      .catch((error)=>console.log(error))
   },
   // fetch related breeds from a given breed
   // https://dog.ceo/api/breed/hound/images
@@ -26,6 +27,7 @@ const actions = {
       .then(response => {
         commit('setDogs', response.data.message)
       })
+      .catch((error)=>console.log(error))
   }
 }
 

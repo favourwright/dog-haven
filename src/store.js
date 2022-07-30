@@ -1,38 +1,35 @@
 import { createStore } from 'vuex'
+import axios from 'axios'
 
 const state = {
-  count: 0
+  dogs: []
 }
 
 const mutations = {
-  increment (state) {
-    state.count++
-  },
-  decrement (state) {
-    state.count--
+  setDogs(state, dogs) {
+    state.dogs = dogs
   }
 }
 
 const actions = {
-  increment: ({ commit }) => commit('increment'),
-  decrement: ({ commit }) => commit('decrement'),
-  incrementIfOdd ({ commit, state }) {
-    if ((state.count + 1) % 2 === 0) {
-      commit('increment')
-    }
+  // fetch dogs from API https://dog.ceo/api/breeds/image/random/100
+  fetchRandomDogs({ commit }) {
+    axios.get('https://dog.ceo/api/breeds/image/random/10')
+      .then(response => {
+        commit('setDogs', response.data.message)
+      })
   },
-  incrementAsync ({ commit }) {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        commit('increment')
-        resolve()
-      }, 1000)
-    })
+  // fetch related breeds from a given breed
+  // https://dog.ceo/api/breed/hound/images
+  fetchByBreed({ commit }, breed) {
+    axios.get(`https://dog.ceo/api/breed/${breed}/images`)
+      .then(response => {
+        commit('setDogs', response.data.message)
+      })
   }
 }
-const getters = {
-  evenOrOdd: state => state.count % 2 === 0 ? 'even' : 'odd'
-}
+
+const getters = {}
 
 export default createStore({
   state,

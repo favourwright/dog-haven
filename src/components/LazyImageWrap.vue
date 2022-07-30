@@ -1,8 +1,8 @@
 <template>
   <figure ref="target">
-    <Image :source="render_source" />
+    <Image :source="rendered_source" />
+    {{targetIsVisible}}
   </figure>
-  {{targetIsVisible}}
 </template>
 
 <script setup>
@@ -27,14 +27,18 @@ const { stop } = useIntersectionObserver(
   },
   // make root margin to be more so images would be loaded
   // before they are visible
-  { rootMargin: '300px' }
+  // { rootMargin: '300px' }
 )
 
 // rendered source url is set when component is intersecting
-let render_source = ref('')
+let rendered_source = ref('')
 watch(targetIsVisible, (isVisible) => {
   if (isVisible) {
-    render_source.value = props.source
+    rendered_source.value = props.source
+    // stop observing if its been visible once
+    // this means the source image is loaded
+    // and we don't need to observe it anymore
+    // stop()
   }
 })
 </script>

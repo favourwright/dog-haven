@@ -27,22 +27,23 @@ const { stop } = useIntersectionObserver(
     ratio.value = intersectionRatio
   },
   // make root margin to be more so images would be loaded
-  // before they are visible
-  // { rootMargin: '300px' }
+  // before they are visible rootMargin: '300px'
   // trigger for each threshold ratio hit
-  { threshold: [0.1, 0.5, 0.6, 1] }
+  {
+    threshold: [0.1, 0.5, 0.6, 1],
+    rootMargin: '100px'
+  }
 )
 
 // rendered source url is set when component is intersecting
 let rendered_source = ref('')
 watch(targetIsVisible, (isVisible) => {
-  if (isVisible) {
+  if (isVisible && rendered_source.value === '') {
     rendered_source.value = props.source
-    // stop observing if its been visible once
-    // this means the source image is loaded
-    // and we don't need to observe it anymore
-    // stop()
   }
 })
-watch(ratio, (fullyVisible) => showCaption.value=fullyVisible>0.5?true:false)
+watch(ratio, (fullyVisible) =>{
+  console.log('ratio', fullyVisible);
+  showCaption.value=fullyVisible>0.9?true:false
+})
 </script>

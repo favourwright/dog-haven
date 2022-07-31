@@ -13,11 +13,7 @@
           transform translate-y-full transition-all duration-300
           bg-primary/10 text-black backdrop-blur-sm min-h-[50px]
           p-2 px-4 font-bold text-lg capitalize">
-          <h2
-            class="name block"
-            style="text-shadow: 1px 1px rgba(255, 255, 255, 0.4)">
-            {{breedName}}
-          </h2>
+          <h2 class="name block">{{breedName}}</h2>
           <ViewMore>
             woof<span class="text-white/50">x2</span>
           </ViewMore>
@@ -69,6 +65,9 @@ const breedName = computed(() => props.source.split('/')[4].split('_')[0].replac
   100% {
     transform: scale(1);
   }
+}
+.name{
+  text-shadow: 0.5px 0.5px rgba(255, 255, 255, 0.8)
 }
 .card:hover .name{
   @apply hidden md:block;

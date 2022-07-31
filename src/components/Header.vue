@@ -4,7 +4,7 @@
   flex items-center justify-between px-[6%] z-20
   bg-white/50 backdrop-blur">
   <Logo />
-  <GitBadge link="http://github.com/favourwright" />
+  <GitBadge text="favourwright" link="http://github.com/favourwright" />
   <!-- when user has scrolled beyond a threshold -->
   <!-- teleport the component with search here -->
 </header>

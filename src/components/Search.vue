@@ -69,14 +69,13 @@ watch(searchQuery, (val) => {
 const rendered_breed_hint = ref([])
 const HandleSearch = (manual=false) =>{
   // filter/search through local dogs list using searchQuery
-  // if any matches, make the api reqeust else show no results
   const filtered_breeds = breeds.value.filter(breed => breed.toLowerCase().includes(searchQuery.value.toLowerCase()))
   if (filtered_breeds.length > 0) {
     rendered_breed_hint.value = filtered_breeds
-    console.log(filtered_breeds);
     if(manual){
       searchQuery.value = ''
     }
+    // if any matches, make the api reqeust
   } else {
     // not found
     rendered_breed_hint.value = breeds.value

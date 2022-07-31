@@ -2,12 +2,10 @@
   <div
     class="card flex flex-wrap w-1/2 md:w-1/3">
     <div class="w-full p-1 md:p-2">
-      <!-- <img alt="gallery" class="block object-cover object-center w-full h-full rounded-lg"
-        src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/Nature/4-col/img%20(73).webp"> -->
       <LazyImage
         alt="gallery"
         class="block object-cover object-center w-full h-52 md:h-96
-        rounded-lg relative overflow-hidden transition duration-300"
+        rounded-xl md:rounded-lg relative overflow-hidden transition duration-300"
         :source='source'>
         <figcaption
           :class="{'show':showCaption}"
@@ -15,13 +13,14 @@
           transform translate-y-full transition-all duration-300
           bg-primary/10 text-black backdrop-blur-sm min-h-[50px]
           p-2 px-4 font-bold text-lg capitalize">
-          <h2 class="name block">{{breedName}}</h2>
-          <button
-            class="hidden p1 px-4 w-full md:w-auto
-            bg-tertiary text-white rounded-lg
-            border-2 border-primary/60 select-none">
+          <h2
+            class="name block"
+            style="text-shadow: 1px 1px rgba(255, 255, 255, 0.4)">
+            {{breedName}}
+          </h2>
+          <ViewMore>
             woof<span class="text-white/50">x2</span>
-          </button>
+          </ViewMore>
         </figcaption>
       </LazyImage>
     </div>
@@ -31,6 +30,7 @@
 <script setup>
 import { ref, computed, provide } from 'vue';
 import LazyImage from './LazyImageWrap.vue'
+import ViewMore from './atoms/ViewMore.vue';
 
 const props = defineProps({
   source: {
@@ -70,7 +70,6 @@ const breedName = computed(() => props.source.split('/')[4].split('_')[0].replac
     transform: scale(1);
   }
 }
-
 .card:hover .name{
   @apply hidden md:block;
 }

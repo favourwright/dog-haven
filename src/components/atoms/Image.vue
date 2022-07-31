@@ -1,6 +1,6 @@
 <template>
   <span v-if="isLoading">Loading</span>
-  <img  v-else :src="source">
+  <img :class="$attrs.class" v-else :src="source">
 </template>
 
 <script setup>

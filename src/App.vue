@@ -1,6 +1,8 @@
 <template>
   <Header />
-  <RouterView />
+  <main class="pt-16">
+    <RouterView />
+  </main>
 </template>
 
 <script setup>

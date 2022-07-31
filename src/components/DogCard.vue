@@ -1,0 +1,60 @@
+<template>
+  <div
+    class="card flex flex-wrap w-1/2 md:w-1/3">
+    <div class="w-full p-1 md:p-2">
+      <!-- <img alt="gallery" class="block object-cover object-center w-full h-full rounded-lg"
+        src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/Nature/4-col/img%20(73).webp"> -->
+      <LazyImage
+        alt="gallery"
+        class="block object-cover object-center w-full h-52 md:h-96
+        rounded-lg relative overflow-hidden transition duration-300"
+        :source='source'>
+        <figcaption
+          :class="{'show':showCaption}"
+          class="flex justify-between absolute bottom-0 left-0 right-0
+          transform translate-y-full transition-all duration-300
+          bg-primary/10 text-black backdrop-blur-sm min-h-[50px]
+          p-2 px-4 font-bold text-lg capitalize">
+          <h2 class="name block">{{breedName}}</h2>
+          <button
+            class="hidden p1 px-4 w-full md:w-auto
+            bg-tertiary text-white rounded-lg
+            border-2 border-primary/60 select-none">
+            woof<span class="text-white/50">x2</span>
+          </button>
+        </figcaption>
+      </LazyImage>
+    </div>
+  </div>
+</template>
+
+<script setup>
+import { ref, computed, provide } from 'vue';
+import LazyImage from './LazyImageWrap.vue'
+
+const props = defineProps({
+  source: {
+    type: String,
+    required: true,
+  }
+})
+let showCaption = ref(false)
+provide('showCaption', showCaption)
+// https://images.dog.ceo/breeds/brabancon/n02112706_1418.jpg
+const breedName = computed(() => props.source.split('/')[4].split('_')[0].replace(/-/gi, ' '))
+</script>
+
+<style scoped>
+:global(.card:hover img) {
+  @apply scale-110
+}
+.card:hover button{
+  @apply block;
+}
+.card:hover .name{
+  @apply hidden md:block;
+}
+.show{
+  @apply translate-y-0;
+}
+</style>

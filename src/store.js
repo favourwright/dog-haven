@@ -14,7 +14,7 @@ const mutations = {
 const actions = {
   // fetch dogs from API https://dog.ceo/api/breeds/image/random/100
   fetchRandomDogs({ commit }) {
-    axios.get('https://dog.ceo/api/breeds/image/random/100')
+    axios.get('https://dog.ceo/api/breeds/image/random/10')
       .then(response => {
         commit('setDogs', response.data.message)
       })

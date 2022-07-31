@@ -1,7 +1,8 @@
 <template>
 <header
   class="h-16 fixed top-0 left-0 right-0
-  flex items-center px-[6%] bg-white/10 backdrop-blur-sm">
+  flex items-center px-[6%] z-20
+  bg-white/50 backdrop-blur">
   <Logo />
   <!-- when user has scrolled beyond a threshold -->
   <!-- teleport the component with search here -->

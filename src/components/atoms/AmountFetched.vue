@@ -1,10 +1,10 @@
 <template>
-<div>
+<div class="flex items-center">
   <input
     type="text"
     v-model.number="amount"
     class="inline-flex w-[40px] focus:outline-none
-    font-semibold px-2 py-1.5 ring-2 ring-tertiary/10
+    font-semibold p-1.5 ring-2 ring-tertiary/10
     rounded-l-lg">
   <span
     class="uppercase p-2 bg-tertiary/10

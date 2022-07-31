@@ -22,7 +22,7 @@ import DogCard from './DogCard.vue'
 import Customization from './Customization.vue';
 
 const store = useStore()
-store.dispatch('fetchRandomDogs', store.state.amountToFetch) // fetch on created
+store.dispatch('fetchRandomDogs', store.state.fetchLimit) // fetch on created
 store.dispatch('fetchAllBreedNames') // fetch on created
 const dogs = computed(() => store.state.dogs)
 const fetchingDogs = computed(() => store.state.fetchingDogs)

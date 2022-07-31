@@ -19,5 +19,5 @@
 
 <script setup>
 import Search from './Search.vue';
-import AmountFetched from './atoms/AmountFetched.vue';
+import AmountFetched from './atoms/FetchLimit.vue';
 </script>

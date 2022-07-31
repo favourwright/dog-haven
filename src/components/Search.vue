@@ -85,7 +85,7 @@ const HandleSearch = (manual=false) =>{
       rendered_breed_hint.value = []
       // store.commit('setSearchBreed', first)
       // make the api reqeust but we're only searching for the first match
-      store.dispatch('fetchByBreed', { breed: first })
+      store.dispatch('fetchByBreed', { breed: first, limit: store.state.fetchLimit })
     }
   } else {
     // handle not found

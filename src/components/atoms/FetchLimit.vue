@@ -2,7 +2,7 @@
 <div class="flex items-center">
   <input
     type="text"
-    :value="amount"
+    :value="limit"
     @input="HandleInput"
     class="inline-flex w-[40px] focus:outline-none
     font-semibold p-1.5 ring-2 ring-tertiary/10
@@ -10,7 +10,7 @@
   <span
     class="p-2 bg-tertiary/10
     rounded-r-sm select-none font-semibold">
-    fetched
+    {{fetchingDogs?'fetched':status}}
   </span>
 </div>
 </template>
@@ -20,15 +20,17 @@ import { computed, ref, watch } from 'vue'
 import { useStore } from 'vuex'
 
 const store = useStore()
-const amount = computed(() => store.state.amountToFetch)
-const HandleInput = (e) => store.commit('setAmountToFetch', +e.target.value)
+const limit = computed(() => store.state.fetchLimit)
+const fetchingDogs = computed(() => store.state.fetchingDogs)
+const HandleInput = (e) => store.commit('setFetchLimit', +e.target.value)
+const status = ref('fetched')
 
-watch(amount, (newValue) => {
+watch(limit, (newValue) => {
   if(+newValue > 0) {
-    // commit setAmountToFetch mutation
-    store.commit('setAmountToFetch', +newValue)
+    status.value = 'to be fetched'
+    store.commit('setFetchLimit', +newValue)
   } else {
-    store.commit('setAmountToFetch', 100)
+    store.commit('setFetchLimit', 100)
   }
 })
 </script>

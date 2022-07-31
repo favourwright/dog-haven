@@ -4,7 +4,7 @@ import axios from 'axios'
 const state = {
   dogs: [],
   allBreeds: [],
-  amountToFetch: 100,
+  fetchLimit: 100,
   // searchBreed: null,
   fetchingDogs: false,
 }
@@ -16,8 +16,8 @@ const mutations = {
   setAllBreeds(state, breeds) {
     state.allBreeds = breeds
   },
-  setAmountToFetch(state, amount) {
-    state.amountToFetch = amount
+  setFetchLimit(state, limit) {
+    state.fetchLimit = limit
   },
   // setSearchBreed(state, breed) {
   //   state.searchBreed = breed
@@ -29,9 +29,9 @@ const mutations = {
 
 const actions = {
   // fetch dogs from API https://dog.ceo/api/breeds/image/random/100
-  fetchRandomDogs({ commit }, amount) {
+  fetchRandomDogs({ commit }, limit) {
     commit('setFetchingDogs', true)
-    axios.get(`https://dog.ceo/api/breeds/image/random/${amount}`)
+    axios.get(`https://dog.ceo/api/breeds/image/random/${limit}`)
       .then(response => {
         commit('setDogs', response.data.message)
         commit('setFetchingDogs', false)
@@ -43,9 +43,9 @@ const actions = {
   },
   // fetch related breeds from a given breed
   // https://dog.ceo/api/breed/hound/images
-  fetchByBreed({ commit }, { breed, amount }) {
+  fetchByBreed({ commit }, { breed, limit }) {
     commit('setFetchingDogs', true)
-    axios.get(`https://dog.ceo/api/breed/${breed}/images`)
+    axios.get(`https://dog.ceo/api/breed/${breed}/images/random/${limit}`)
       .then(response => {
         commit('setDogs', response.data.message)
         commit('setFetchingDogs', false)

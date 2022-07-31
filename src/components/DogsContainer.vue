@@ -1,5 +1,5 @@
 <template>
-<div class="relative">
+<div class="relative min-h-[300px]">
   <Customization class="absolute bottom-full z-10" />
   <section class="overflow-hidden text-gray-700">
     <div class="pt-2 px-[6%]">

@@ -4,19 +4,19 @@
     v-show="searchable && rendered_breed_hint.length"
     class="hint absolute bottom-full mb-4 overflow-y-auto
     w-full max-h-80 backdrop-blur border-2
-    border-primary/50 rounded-xl">
+    border-blue-400/10 rounded-xl overflow-hidden">
     <ul>
       <li
         v-for="(breed,i) in rendered_breed_hint"
         :key="`breed-${i}`"
         @click="HandleHintClicks(breed)"
-        class="last-of-type:rounded-b-xl first-of-type:rounded-t-xl
-        bg-primary/10 py-1.5 px-4 even:bg-primary/20">
+        class="bg-blue-400/5 py-1.5 px-4 even:bg-blue-400/0 hover:cursor-pointer
+        hover:bg-blue-400/10 transition duration-300">
         {{breed}}
       </li>
     </ul>
   </div>
-  <div class="xl:w-96">
+  <div class="w-40 md:w-96 xl:w-96 transition-all duration-300">
     <div
       class="input-group relative flex items-stretch w-full rounded-xl">
       <input
@@ -25,15 +25,19 @@
         type="search"
         class="relative flex-auto min-w-0 block w-full
         placeholder-tertiary focus:placeholder-slate-300
-        px-3 py-1.5 text-base font-normal text-tertiary bg-tertiary/50
-        bg-clip-padding border-none rounded-l-xl transition ease-in-out
-        m-0 focus:text-white focus:bg-tertiary focus:outline-none"
+        px-3 py-1.5 text-base font-normal text-tertiary bg-white
+        ring-2 ring-blue-400/10
+        bg-clip-padding border-none rounded-l-xl rounded-r-none transition ease-in-out
+        m-0 focus:text-tertiary focus:ring-blue-400 focus:outline-none"
         placeholder="Search breeds" aria-label="Search breeds" aria-describedby="button-addon2">
       <span
         @click="HandleSearch(true)"
-        :class="[searchable?'bg-tertiary/80 text-white':'bg-tertiary/10 text-tertiary/20']"
+        :class="[searchable?
+        'bg-blue-400 text-white ring-blue-400':
+        'bg-blue-400/10 text-tertiary/20 ring-blue-400/10']"
         class="input-group-text flex items-center px-3 py-1.5 text-base rounded-r-xl
-        font-normal text-center whitespace-nowrap transition-all duration-300"
+        font-normal text-center whitespace-nowrap transition-all duration-300
+        ring-2"
         id="basic-addon2">
         <svg
           aria-hidden="true" focusable="false" data-prefix="fas"

@@ -28,10 +28,10 @@ const { stop } = useIntersectionObserver(
   },
   {
     // trigger for each threshold ratio hit
-    threshold: [0.1, 0.5, 0.6, 1],
+    threshold: [0, 0.1, 0.5, 0.6, 1],
     // make root margin to be more so images would be loaded
     // before they are visible
-    rootMargin: '100px'
+    // rootMargin: '100px'
   }
 )
 

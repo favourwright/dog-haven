@@ -22,6 +22,6 @@ import Customization from './Customization.vue';
 
 const store = useStore()
 store.dispatch('fetchRandomDogs') // fetch on created
-store.dispatch('fetchAllBreeds') // fetch on created
+store.dispatch('fetchAllBreedNames') // fetch on created
 const dogs = computed(() => store.state.dogs)
 </script>

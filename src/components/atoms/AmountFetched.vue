@@ -2,12 +2,13 @@
 <div class="flex items-center">
   <input
     type="text"
-    v-model.number="amount"
+    :value="amount"
+    @input="HandleInput"
     class="inline-flex w-[40px] focus:outline-none
     font-semibold p-1.5 ring-2 ring-tertiary/10
     rounded-l-lg">
   <span
-    class="uppercase p-2 bg-tertiary/10
+    class="p-2 bg-tertiary/10
     rounded-r-lg select-none font-semibold">
     fetched
   </span>
@@ -15,13 +16,19 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue'
-const amount = ref(100)
+import { computed, ref, watch } from 'vue'
+import { useStore } from 'vuex'
+
+const store = useStore()
+const amount = computed(() => store.state.amountToFetch)
+const HandleInput = (e) => store.commit('setAmountToFetch', +e.target.value)
+
 watch(amount, (newValue) => {
-  if(newValue > 0) {
-    console.log(`${newValue} dogs fetched`)
+  if(+newValue > 0) {
+    // commit setAmountToFetch mutation
+    store.commit('setAmountToFetch', +newValue)
   } else {
-    amount.value = 100
+    store.commit('setAmountToFetch', 100)
   }
 })
 </script>

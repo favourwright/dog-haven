@@ -76,13 +76,19 @@ const HandleSearch = (manual=false) =>{
   const filtered_breeds = breeds.value.filter(breed => breed.toLowerCase().includes(searchQuery.value.toLowerCase()))
   if (filtered_breeds.length > 0) {
     rendered_breed_hint.value = filtered_breeds
+    const first = rendered_breed_hint.value[0] // only one name is needed
     if(manual){
-      searchQuery.value = ''
+      // to be  displayed on input
+      searchQuery.value = first
+      rendered_breed_hint.value = []
     }
-    // if any matches, make the api reqeust
+    store.commit('setSearchBreed', first)
+    // make the api reqeust but we're only searching for the first match
+    store.dispatch('fetchByBreed', { breed: first })
   } else {
-    // not found
-    rendered_breed_hint.value = breeds.value
+    // handle not found
+    store.commit('setSearchBreed', null)
+    rendered_breed_hint.value = []
   }
 }
 const HandleHintClicks = (breed) => {
@@ -90,7 +96,6 @@ const HandleHintClicks = (breed) => {
   searchQuery.value = breed
   HandleSearch()
   rendered_breed_hint.value = []
-  searchQuery.value = ''
 }
 const debouncedFn = useDebounceFn(HandleSearch, 1000)    
 </script>

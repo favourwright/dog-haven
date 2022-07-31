@@ -4,6 +4,8 @@ import axios from 'axios'
 const state = {
   dogs: [],
   allBreeds: [],
+  amountToFetch: 100,
+  searchBreed: null
 }
 
 const mutations = {
@@ -12,13 +14,19 @@ const mutations = {
   },
   setAllBreeds(state, breeds) {
     state.allBreeds = breeds
+  },
+  setAmountToFetch(state, amount) {
+    state.amountToFetch = amount
+  },
+  setSearchBreed(state, breed) {
+    state.searchBreed = breed
   }
 }
 
 const actions = {
   // fetch dogs from API https://dog.ceo/api/breeds/image/random/100
-  fetchRandomDogs({ commit }) {
-    axios.get('https://dog.ceo/api/breeds/image/random/10')
+  fetchRandomDogs({ commit }, amount) {
+    axios.get(`https://dog.ceo/api/breeds/image/random/${amount}`)
       .then(response => {
         commit('setDogs', response.data.message)
       })
@@ -26,7 +34,7 @@ const actions = {
   },
   // fetch related breeds from a given breed
   // https://dog.ceo/api/breed/hound/images
-  fetchByBreed({ commit }, breed) {
+  fetchByBreed({ commit }, { breed, amount }) {
     axios.get(`https://dog.ceo/api/breed/${breed}/images`)
       .then(response => {
         commit('setDogs', response.data.message)
@@ -34,7 +42,7 @@ const actions = {
       .catch((error)=>console.log(error))
   },
   // https://dog.ceo/api/breeds/list/all
-  fetchAllBreeds({ commit }) {
+  fetchAllBreedNames({ commit }) {
     axios.get('https://dog.ceo/api/breeds/list/all')
       .then(response => {
         commit('setAllBreeds', response.data.message)

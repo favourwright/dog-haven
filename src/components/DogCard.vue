@@ -50,7 +50,27 @@ const breedName = computed(() => props.source.split('/')[4].split('_')[0].replac
 }
 .card:hover button{
   @apply block;
+  animation: pulse 800ms;
 }
+/* keyframe pulse animation x2 */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  20% {
+    transform: scale(1.1);
+  }
+  50% {
+    transform: scale(1);
+  }
+  70% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
 .card:hover .name{
   @apply hidden md:block;
 }

@@ -1,6 +1,10 @@
 <template>
-  <div class="flex decoration-2 font-extrabold text-xl space-x-1">
-    <span class="underline underline-offset-8 text-tertiary decoration-secondary">dOG</span>
-    <span class="overline text-tertiary decoration-primary">hAVEN</span>
+  <div class="flex decoration-2 text-xl">
+    <span
+      class="text-white bg-tertiary border-b-2 border-secondary
+      decoration-secondary px-2 font-extrabold box-content">DOG</span>
+    <span
+      class="px-1 text-tertiary border-t-2
+      border-primary font-light">HAVEN</span>
   </div>
 </template>

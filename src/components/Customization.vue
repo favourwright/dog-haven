@@ -6,7 +6,7 @@
     <AmountFetched />
     <Search />
   </div>
-  <button class="ml-2 mb-2 px-2 py-1 rounded-md bg-blue-300">Random fetch</button>
+  <button class="ml-2 mb-2 px-2 py-1 rounded-md bg-tertiary text-white">Random fetch</button>
 </section>
 </template>
 

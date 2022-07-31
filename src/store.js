@@ -2,12 +2,16 @@ import { createStore } from 'vuex'
 import axios from 'axios'
 
 const state = {
-  dogs: []
+  dogs: [],
+  allBreeds: [],
 }
 
 const mutations = {
   setDogs(state, dogs) {
     state.dogs = dogs
+  },
+  setAllBreeds(state, breeds) {
+    state.allBreeds = breeds
   }
 }
 
@@ -26,6 +30,14 @@ const actions = {
     axios.get(`https://dog.ceo/api/breed/${breed}/images`)
       .then(response => {
         commit('setDogs', response.data.message)
+      })
+      .catch((error)=>console.log(error))
+  },
+  // https://dog.ceo/api/breeds/list/all
+  fetchAllBreeds({ commit }) {
+    axios.get('https://dog.ceo/api/breeds/list/all')
+      .then(response => {
+        commit('setAllBreeds', response.data.message)
       })
       .catch((error)=>console.log(error))
   }

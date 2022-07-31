@@ -26,11 +26,11 @@ const { stop } = useIntersectionObserver(
     targetIsVisible.value = isIntersecting
     ratio.value = intersectionRatio
   },
-  // make root margin to be more so images would be loaded
-  // before they are visible rootMargin: '300px'
-  // trigger for each threshold ratio hit
   {
+    // trigger for each threshold ratio hit
     threshold: [0.1, 0.5, 0.6, 1],
+    // make root margin to be more so images would be loaded
+    // before they are visible
     rootMargin: '100px'
   }
 )
@@ -43,7 +43,6 @@ watch(targetIsVisible, (isVisible) => {
   }
 })
 watch(ratio, (fullyVisible) =>{
-  console.log('ratio', fullyVisible);
   showCaption.value=fullyVisible>0.9?true:false
 })
 </script>

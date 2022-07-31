@@ -3,8 +3,8 @@
   <div
     v-show="searchable && rendered_breed_hint.length"
     class="hint absolute bottom-full mb-4 overflow-y-auto
-    w-full max-h-80 backdrop-blur border-2
-    border-primary/10 rounded-xl overflow-hidden">
+    w-full max-h-80 bg-white/80 backdrop-blur border-2
+    border-primary/10 rounded-sm overflow-hidden">
     <ul>
       <li
         v-for="(breed,i) in rendered_breed_hint"
@@ -18,7 +18,7 @@
   </div>
   <div class="w-40 md:w-96 xl:w-96 transition-all duration-300">
     <div
-      class="input-group relative flex items-stretch w-full rounded-xl">
+      class="input-group relative flex items-stretch w-full rounded-sm">
       <input
         v-model="searchQuery"
         @keyup.enter="HandleSearch(true)"
@@ -27,7 +27,7 @@
         placeholder-tertiary focus:placeholder-slate-300
         px-3 py-1.5 text-base font-normal text-tertiary bg-white
         ring-2 ring-primary/10
-        bg-clip-padding border-none rounded-l-xl rounded-r-none transition ease-in-out
+        bg-clip-padding border-none rounded-l-sm rounded-r-none transition ease-in-out
         m-0 focus:text-tertiary focus:ring-primary focus:outline-none"
         placeholder="Search breeds" aria-label="Search breeds" aria-describedby="button-addon2">
       <span
@@ -35,7 +35,7 @@
         :class="[searchable?
         'bg-primary text-white ring-primary':
         'bg-primary/10 text-tertiary/20 ring-primary/10']"
-        class="input-group-text flex items-center px-3 py-1.5 text-base rounded-r-xl
+        class="input-group-text flex items-center px-3 py-1.5 text-base rounded-r-sm
         font-normal text-center whitespace-nowrap transition-all duration-300
         ring-2"
         id="basic-addon2">

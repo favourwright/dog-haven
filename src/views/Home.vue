@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <main>
     <Hero />
     <DogsContainer />
-  </div>
+  </main>
 </template>
 <script setup>
 import DogsContainer from '../components/DogsContainer.vue';

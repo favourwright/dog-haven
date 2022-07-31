@@ -6,10 +6,10 @@
     @input="HandleInput"
     class="inline-flex w-[40px] focus:outline-none
     font-semibold p-1.5 ring-2 ring-tertiary/10
-    rounded-l-lg">
+    rounded-l-sm">
   <span
     class="p-2 bg-tertiary/10
-    rounded-r-lg select-none font-semibold">
+    rounded-r-sm select-none font-semibold">
     fetched
   </span>
 </div>

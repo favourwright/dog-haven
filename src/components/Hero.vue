@@ -1,5 +1,5 @@
 <template>
-<section class="landing">
+<section class="landing bg-tertiary">
 </section>
 </template>
 

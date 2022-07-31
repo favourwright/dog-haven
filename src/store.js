@@ -5,7 +5,8 @@ const state = {
   dogs: [],
   allBreeds: [],
   amountToFetch: 100,
-  searchBreed: null
+  // searchBreed: null,
+  fetchingDogs: false,
 }
 
 const mutations = {
@@ -18,28 +19,41 @@ const mutations = {
   setAmountToFetch(state, amount) {
     state.amountToFetch = amount
   },
-  setSearchBreed(state, breed) {
-    state.searchBreed = breed
+  // setSearchBreed(state, breed) {
+  //   state.searchBreed = breed
+  // },
+  setFetchingDogs(state, fetching) {
+    state.fetchingDogs = fetching
   }
 }
 
 const actions = {
   // fetch dogs from API https://dog.ceo/api/breeds/image/random/100
   fetchRandomDogs({ commit }, amount) {
+    commit('setFetchingDogs', true)
     axios.get(`https://dog.ceo/api/breeds/image/random/${amount}`)
       .then(response => {
         commit('setDogs', response.data.message)
+        commit('setFetchingDogs', false)
       })
-      .catch((error)=>console.log(error))
+      .catch((error)=>{
+        console.log(error)
+        commit('setFetchingDogs', true)
+      })
   },
   // fetch related breeds from a given breed
   // https://dog.ceo/api/breed/hound/images
   fetchByBreed({ commit }, { breed, amount }) {
+    commit('setFetchingDogs', true)
     axios.get(`https://dog.ceo/api/breed/${breed}/images`)
       .then(response => {
         commit('setDogs', response.data.message)
+        commit('setFetchingDogs', false)
       })
-      .catch((error)=>console.log(error))
+      .catch((error)=>{
+        console.log(error)
+        commit('setFetchingDogs', true)
+      })
   },
   // https://dog.ceo/api/breeds/list/all
   fetchAllBreedNames({ commit }) {

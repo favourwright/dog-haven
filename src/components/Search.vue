@@ -77,17 +77,19 @@ const HandleSearch = (manual=false) =>{
   if (filtered_breeds.length > 0) {
     rendered_breed_hint.value = filtered_breeds
     const first = rendered_breed_hint.value[0] // only one name is needed
+    // to prevent multiple calls fetch only when a user
+    // presses enter or clicks on the search button
     if(manual){
       // to be  displayed on input
       searchQuery.value = first
       rendered_breed_hint.value = []
+      // store.commit('setSearchBreed', first)
+      // make the api reqeust but we're only searching for the first match
+      store.dispatch('fetchByBreed', { breed: first })
     }
-    store.commit('setSearchBreed', first)
-    // make the api reqeust but we're only searching for the first match
-    store.dispatch('fetchByBreed', { breed: first })
   } else {
     // handle not found
-    store.commit('setSearchBreed', null)
+    // store.commit('setSearchBreed', null)
     rendered_breed_hint.value = []
   }
 }

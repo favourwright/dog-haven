@@ -5,7 +5,7 @@
     <div class="pt-2 px-[6%]">
       <div class="flex flex-wrap md:gap-0 bg-tertiary/10 rounded-2xl">
         <template v-if="fetchingDogs">
-          <CardSkeleton v-for="n in 3" :key="n" />
+          <CardSkeleton v-for="n in skeletonAmount" :key="n" />
         </template>
         <template v-else>
           <DogCard
@@ -22,6 +22,7 @@
 <script setup>
 import { computed } from 'vue'
 import { useStore } from 'vuex'
+import { breakpointsTailwind, useBreakpoints } from '@vueuse/core'
 import DogCard from './DogCard.vue'
 import Customization from './Customization.vue';
 import CardSkeleton from './atoms/CardSkeleton.vue';
@@ -31,4 +32,8 @@ store.dispatch('fetchRandomDogs', store.state.fetchLimit) // fetch on created
 store.dispatch('fetchAllBreedNames') // fetch on created
 const dogs = computed(() => store.state.dogs)
 const fetchingDogs = computed(() => store.state.fetchingDogs)
+
+const breakpoints = useBreakpoints(breakpointsTailwind)
+const isLargeScreen = breakpoints.greater('md')
+const skeletonAmount = computed(()=>isLargeScreen.value?3:4)
 </script>

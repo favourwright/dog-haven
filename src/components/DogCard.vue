@@ -1,7 +1,7 @@
 <template>
   <div
     class="card flex flex-wrap w-1/2 md:w-1/3">
-    <div class="w-full p-1 md:p-2">
+    <div class="w-full p-1 md:p-2 relative">
       <LazyImage
         alt="gallery"
         class="block object-cover object-center w-full h-52 md:h-96
@@ -19,12 +19,17 @@
           </ViewMore>
         </figcaption>
       </LazyImage>
+      <RouterLink
+        :to="`view/${imageName}`"
+        :query="{extension: imageExt, breed: breedName}"
+        class="absolute top-0 left-0 right-0 bottom-0" />
     </div>
   </div>
 </template>
 
 <script setup>
 import { ref, computed, provide } from 'vue';
+import { RouterLink } from 'vue-router'
 import LazyImage from './LazyImageWrap.vue'
 import ViewMore from './atoms/ViewMore.vue';
 
@@ -38,6 +43,9 @@ let showCaption = ref(false)
 provide('showCaption', showCaption)
 // https://images.dog.ceo/breeds/brabancon/n02112706_1418.jpg
 const breedName = computed(() => props.source.split('/')[4].split('_')[0].replace(/-/gi, ' '))
+const image = computed(() => props.source.split('/').slice(-1)[0])
+const imageName = computed(() => image.value.split('.')[0])
+const imageExt = computed(() => image.value.split('.')[1])
 </script>
 
 <style scoped>

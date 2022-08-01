@@ -5,8 +5,6 @@
   bg-white/80 backdrop-blur">
   <Logo />
   <GitBadge text="favourwright" link="http://github.com/favourwright" />
-  <!-- when user has scrolled beyond a threshold -->
-  <!-- teleport the component with search here -->
 </header>
 </template>
 

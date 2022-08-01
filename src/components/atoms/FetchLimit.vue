@@ -10,7 +10,7 @@
   <span
     class="p-2 bg-tertiary/10
     rounded-r-sm select-none font-semibold">
-    {{fetchingDogs?'fetched':status}}
+    {{!fetchingDogs?'fetched':'fetching'}}
   </span>
 </div>
 </template>
@@ -23,11 +23,9 @@ const store = useStore()
 const limit = computed(() => store.state.fetchLimit)
 const fetchingDogs = computed(() => store.state.fetchingDogs)
 const HandleInput = (e) => store.commit('setFetchLimit', +e.target.value)
-const status = ref('fetched')
 
 watch(limit, (newValue) => {
   if(+newValue > 0) {
-    status.value = 'to be fetched'
     store.commit('setFetchLimit', +newValue)
   } else {
     store.commit('setFetchLimit', 100)

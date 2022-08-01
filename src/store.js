@@ -5,7 +5,7 @@ const state = {
   dogs: [],
   allBreeds: [],
   fetchLimit: 100,
-  // searchBreed: null,
+  searchBreed: null,
   fetchingDogs: false,
 }
 
@@ -19,9 +19,9 @@ const mutations = {
   setFetchLimit(state, limit) {
     state.fetchLimit = limit
   },
-  // setSearchBreed(state, breed) {
-  //   state.searchBreed = breed
-  // },
+  setSearchBreed(state, breed) {
+    state.searchBreed = breed
+  },
   setFetchingDogs(state, fetching) {
     state.fetchingDogs = fetching
   }

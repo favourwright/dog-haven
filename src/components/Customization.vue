@@ -12,12 +12,23 @@
       <AmountFetched />
       <Search />
     </div>
-    <button class="mb-2 px-2 py-1 rounded-sm bg-tertiary text-white">Random fetch</button>
+    <div class="mb-2 flex justify-between items-center">
+      <button class="px-2 py-1 rounded-sm bg-tertiary text-white">
+        Random fetch
+      </button>
+      <span>Showing: <strong>{{ !!searchBreed ? searchBreed : 'all'  }}</strong></span>
+    </div>
   </div>
 </section>
 </template>
 
 <script setup>
-import Search from './Search.vue';
-import AmountFetched from './atoms/FetchLimit.vue';
+import Search from './Search.vue'
+import AmountFetched from './atoms/FetchLimit.vue'
+import { watch, computed, ref } from 'vue'
+import { useStore } from 'vuex'
+
+const store = useStore()
+const breedSearched = ref('all')
+const searchBreed = computed(() => store.state.searchBreed)
 </script>

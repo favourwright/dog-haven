@@ -6,8 +6,8 @@
       <div class="flex flex-wrap md:gap-0 bg-tertiary/10 rounded-2xl">
         <h1 class="text-xl text-red-500" v-if="fetchingDogs">fetching</h1>
         <DogCard
-          v-for="(dog,i) in dogs"
-          :key="`dog-${i}`"
+          v-for="dog in dogs"
+          :key="dog"
           :source="dog" />
       </div>
     </div>

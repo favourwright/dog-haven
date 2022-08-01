@@ -23,6 +23,7 @@ const imgExt = ref(route.query.ext)
 const breed = ref(route.query.breed.split(' ').join('-'))
 const breedName = ref(route.query.breed)
 
+// because of keep-alive, we need to manually update the image name
 onActivated(() => {
   imgName.value = route.params.id
   imgExt.value = route.query.ext

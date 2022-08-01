@@ -9,8 +9,12 @@ const router = createRouter({
       name: 'home',
       component: Home
     },
-    // lazy load this component incase it is not needed
-    { path: '/about/:id', component: () => import('../views/AboutDog.vue') }
+    {
+      name: 'about',
+      path: '/about/:id',
+      // lazy load this component incase it is not needed
+      component: () => import('../views/AboutDog.vue')
+    },
   ]
 })
 

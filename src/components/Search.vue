@@ -81,7 +81,7 @@ const HandleSearch = (manual=false) =>{
     // presses enter or clicks on the search button
     if(manual){
       // to be  displayed on input
-      searchQuery.value = first
+      searchQuery.value = ''
       rendered_breed_hint.value = []
       store.commit('setSearchBreed', first)
       // make the api reqeust but we're only searching for the first match

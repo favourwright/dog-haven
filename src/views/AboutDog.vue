@@ -8,13 +8,17 @@
   </section>
   <section class="px-[6%] pt-4">
     <h1 class="text-4xl capitalize">Breed: {{breedName}}</h1>
-    <ul>
-      <li
-        v-for="breed in subBreed"
-        :key="`subBreed${breed}`">
-        {{breed}}
-      </li>
-    </ul>
+    <div class="pt-4 text-white">
+      <ul v-if="!!subBreed" class="space-y-2">
+        <li
+          v-for="breed in subBreed"
+          :key="`subBreed${breed}`"
+          class="bg-tertiary px-3 py-1">
+          {{breed}}
+        </li>
+      </ul>
+      <p class="px-3 py-1 bg-tertiary" v-else>No sub-breeds for {{breedName}}</p>
+    </div>
   </section>
   <section class="px-[6%]">
     <!-- Probably whow similary dogs -->

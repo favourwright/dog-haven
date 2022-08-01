@@ -3,9 +3,11 @@
   <div
     class="bg-white w-full relative
     before:absolute before:right-[99%] before:top-0 before:-z-10
-    before:h-full before:w-[4%] before:md:w-[3%] before:bg-white
+    before:h-full before:w-[5%] before:md:w-[3%] before:bg-white
+    before:rounded-tl-sm
     after:absolute after:left-[99%] after:top-0 after:-z-10
-    after:h-full after:w-[4%] after:md:w-[3%] after:bg-white">
+    after:h-full after:w-[5%] after:md:w-[3%] after:bg-white
+    after:rounded-tr-sm">
     <div
       class="h-full w-full rounded-2xl
       flex justify-between items-center py-4">

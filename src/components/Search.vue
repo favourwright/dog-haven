@@ -91,7 +91,8 @@ const HandleSearch = (manual=false) =>{
     }
   } else {
     // handle not found
-    store.commit('setSearchBreed', null)
+    // make sure there wasn't a filtered list first
+    filtered_breeds.length > 0 ? null : store.commit('setSearchBreed', null)
     rendered_breed_hint.value = []
   }
 }

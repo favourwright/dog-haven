@@ -96,7 +96,7 @@ const HandleSearch = (manual=false) =>{
 const HandleHintClicks = (breed) => {
   // when user clicks on a hint, set searchQuery to the breed and call HandleSearch
   searchQuery.value = breed
-  HandleSearch()
+  HandleSearch(true)
   rendered_breed_hint.value = []
 }
 const debouncedFn = useDebounceFn(HandleSearch, 1000)    

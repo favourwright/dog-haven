@@ -24,7 +24,6 @@
       <input
         v-model="searchQuery"
         @keyup.enter="HandleSearch(true)"
-        @input="debouncedFn()"
         type="search"
         class="relative flex-auto min-w-0 block w-full
         placeholder-tertiary focus:placeholder-slate-300

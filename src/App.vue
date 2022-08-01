@@ -1,14 +1,15 @@
 <template>
   <Header />
-  <keep-alive>
-    <RouterView />
-  </keep-alive>
+  <RouterView v-slot="{ Component }">
+    <keep-alive>
+      <component :is="Component" />
+    </keep-alive>
+  </RouterView>
   <Footer />
 </template>
 
 <script setup>
-// <RouterLink to="/about">About</RouterLink>
-// import { RouterLink, RouterView } from 'vue-router'
+import { RouterView } from 'vue-router'
 import Header from './components/Header.vue'
 import Footer from './components/Footer.vue';
 </script>

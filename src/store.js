@@ -69,7 +69,20 @@ const actions = {
   }
 }
 
-const getters = {}
+const getters = {
+  getAllBreeds(state) {
+    return state.allBreeds
+  },
+  // given a breed, return its subbreeds
+  // const breeds = computed(()=>Object.entries(store.state.allBreeds).map(([key, value]) => key))
+  getSubBreeds(state) {
+    return breed => {
+      // console.log(state.allBreeds);
+      // console.log(breed);
+      return state.allBreeds[breed]
+    }
+  }
+}
 
 export default createStore({
   state,

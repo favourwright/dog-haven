@@ -13,7 +13,7 @@ const router = createRouter({
       name: 'about',
       path: '/about/:id',
       // lazy load this component incase it is not needed
-      component: () => import('../views/AboutDog.vue')
+      component: () => import(/* webpackChunkName: "about" */'../views/AboutDog.vue')
     },
   ]
 })

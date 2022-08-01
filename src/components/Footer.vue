@@ -1,5 +1,5 @@
 <template>
-<footer class="px-[6%] py-10 flex justify-center items-center">
+<footer class="px-[6%] py-10 flex items-center">
   <GitBadge text="favourwright/dog-haven" link="https://github.com/favourwright/dog-haven" />
 </footer>
 </template>

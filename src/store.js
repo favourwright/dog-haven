@@ -34,7 +34,7 @@ const actions = {
     axios.get(`https://dog.ceo/api/breeds/image/random/${limit}`)
       .then(response => {
         commit('setDogs', response.data.message)
-        // commit('setFetchingDogs', false)
+        commit('setFetchingDogs', false)
       })
       .catch((error)=>{
         console.log(error)
@@ -48,7 +48,7 @@ const actions = {
     axios.get(`https://dog.ceo/api/breed/${breed}/images/random/${limit}`)
       .then(response => {
         commit('setDogs', response.data.message)
-        // commit('setFetchingDogs', false)
+        commit('setFetchingDogs', false)
       })
       .catch((error)=>{
         console.log(error)

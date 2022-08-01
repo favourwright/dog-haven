@@ -1,10 +1,11 @@
 <template>
-  <span v-if="isLoading">Loading</span>
+  <CardSkeleton v-if="isLoading" />
   <img :class="$attrs.class" v-else :src="source">
 </template>
 
 <script setup>
 import { useImage } from '@vueuse/core'
+import CardSkeleton from './CardSkeleton.vue';
 
 const props = defineProps({
   source: {

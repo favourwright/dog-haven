@@ -64,7 +64,7 @@ const store = useStore()
 const breeds = computed(()=>Object.entries(store.state.allBreeds).map(([key, value]) => key))
 
 watch(searchQuery, (val) => {
-  if (val.length > 0) {
+  if (val.trim().length > 0) {
     searchable.value = true
     // when user is typing, debounce and call HandleSearch
     debouncedFn()
@@ -76,7 +76,7 @@ const rendered_breed_hint = ref([])
 const HandleSearch = (manual=false) =>{
   // filter/search through local dogs list using searchQuery
   const filtered_breeds = breeds.value.filter(breed => breed.toLowerCase().includes(searchQuery.value.toLowerCase()))
-  if (filtered_breeds.length > 0) {
+  if (filtered_breeds.length > 0 && searchable.value) {
     rendered_breed_hint.value = filtered_breeds
     const first = rendered_breed_hint.value[0] // only one name is needed
     // to prevent multiple calls fetch only when a user

@@ -19,9 +19,12 @@
   <div class="w-40 md:w-96 xl:w-96 transition-all duration-300">
     <div
       class="input-group relative flex items-stretch w-full rounded-sm">
+      <!-- @keydown="HandleSearch(false)" because I want only hints -->
+      <!-- this is needed on mobile because inputs want for change to fire -->
       <input
         v-model="searchQuery"
         @keyup.enter="HandleSearch(true)"
+        @keydown="HandleSearch(false)"
         type="search"
         class="relative flex-auto min-w-0 block w-full
         placeholder-tertiary focus:placeholder-slate-300
@@ -99,5 +102,5 @@ const HandleHintClicks = (breed) => {
   HandleSearch(true)
   rendered_breed_hint.value = []
 }
-const debouncedFn = useDebounceFn(HandleSearch, 1000)    
+const debouncedFn = useDebounceFn(HandleSearch, 1000)
 </script>

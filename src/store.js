@@ -7,6 +7,7 @@ const state = {
   fetchLimit: 100,
   searchBreed: null,
   fetchingDogs: false,
+  fetchingError: false,
 }
 
 const mutations = {
@@ -24,6 +25,9 @@ const mutations = {
   },
   setFetchingDogs(state, fetching) {
     state.fetchingDogs = fetching
+  },
+  setFetchingError(state, error) {
+    state.fetchingError = error
   }
 }
 
@@ -37,8 +41,8 @@ const actions = {
         commit('setFetchingDogs', false)
       })
       .catch((error)=>{
-        console.log(error)
-        commit('setFetchingDogs', true)
+        commit('setFetchingDogs', false)
+        commit('setFetchingError', true)
       })
   },
   // fetch related breeds from a given breed
@@ -51,8 +55,8 @@ const actions = {
         commit('setFetchingDogs', false)
       })
       .catch((error)=>{
-        console.log(error)
-        commit('setFetchingDogs', true)
+        commit('setFetchingDogs', false)
+        commit('setFetchingError', true)
       })
   },
   // https://dog.ceo/api/breeds/list/all

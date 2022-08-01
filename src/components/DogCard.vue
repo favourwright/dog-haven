@@ -11,7 +11,7 @@
           :class="{'show':showCaption}"
           class="flex justify-between absolute bottom-0 left-0 right-0
           transform translate-y-full transition-all duration-300
-          bg-primary/10 text-black backdrop-blur-sm min-h-[50px]
+          bg-primary/10 text-white backdrop-blur-sm min-h-[50px]
           p-2 px-4 font-bold text-lg capitalize">
           <h2 class="name block">{{breedName}}</h2>
           <ViewMore>
@@ -75,7 +75,11 @@ const imageExt = computed(() => image.value.split('.')[1])
   }
 }
 .name{
-  text-shadow: 0.5px 0.5px rgba(255, 255, 255, 0.8)
+  text-shadow:
+    -0.5px -0.5px 0 rgb(0, 0, 0),
+    0.5px -0.5px 0 rgb(0, 0, 0),
+    -0.5px 0.5px 0 rgb(0, 0, 0),
+    0.5px 0.5px 0 rgb(0, 0, 0);
 }
 .card:hover .name{
   @apply hidden md:block;

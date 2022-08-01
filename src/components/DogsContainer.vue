@@ -5,7 +5,7 @@
     <div class="pt-2 px-[6%]">
       <div class="flex flex-wrap md:gap-0 bg-tertiary/10 rounded-2xl">
         <template v-if="fetchingDogs">
-          <CardSkeleton v-for="n in 6" :key="n" />
+          <CardSkeleton v-for="n in 3" :key="n" />
         </template>
         <template v-else>
           <DogCard

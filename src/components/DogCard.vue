@@ -20,8 +20,10 @@
         </figcaption>
       </LazyImage>
       <RouterLink
-        :to="`view/${imageName}`"
-        :query="{extension: imageExt, breed: breedName}"
+        :to="{
+          path: `about/${imageName}`,
+          query: { ext: imageExt, breed: breedName }
+        }"
         class="absolute top-0 left-0 right-0 bottom-0" />
     </div>
   </div>

@@ -46,7 +46,7 @@ const actions = {
       })
   },
   // fetch related breeds from a given breed
-  // https://dog.ceo/api/breed/hound/images
+  // https://dog.ceo/api/breed/hound/images/random/100
   fetchByBreed({ commit }, { breed, limit }) {
     commit('setFetchingDogs', true)
     axios.get(`https://dog.ceo/api/breed/${breed}/images/random/${limit}`)

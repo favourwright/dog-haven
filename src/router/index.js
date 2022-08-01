@@ -10,7 +10,7 @@ const router = createRouter({
       component: Home
     },
     // lazy load this component incase it is not needed
-    { path: '/view/:id', component: () => import('../views/AboutDog.vue') }
+    { path: '/about/:id', component: () => import('../views/AboutDog.vue') }
   ]
 })
 

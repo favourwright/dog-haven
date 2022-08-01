@@ -10,7 +10,7 @@
     <h1 class="text-4xl capitalize">Breed: {{breedName}}</h1>
     <div class="pt-4 text-white">
       <h3 class="text-tertiary text-2xl" v-if="!!subBreed">Sub-breeds</h3>
-      <ul v-if="!!subBreed" class="space-y-2">
+      <ul v-if="!!subBreed" class="flex flex-wrap gap-2">
         <li
           v-for="breed in subBreed"
           :key="`subBreed${breed}`"

@@ -1,5 +1,5 @@
 <template>
-  <CardSkeleton v-if="isLoading" />
+  <CardSkeleton style="width:100%" v-if="isLoading" />
   <img :class="$attrs.class" v-else :src="source">
 </template>
 

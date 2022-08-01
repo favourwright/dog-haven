@@ -2,13 +2,14 @@
 <main class="min-h-screen">
   <section class="landing w-full">
     <img
-      class="w-full h-full object-cover object-top"
+      class="w-full h-full object-cover object-top md:object-center"
       :src="`https://images.dog.ceo/breeds/${breed}/${imgName}.${imgExt}`"
       :alt="`dog breed ${breed}`">
   </section>
   <section class="px-[6%] pt-4">
     <h1 class="text-4xl capitalize">Breed: {{breedName}}</h1>
     <div class="pt-4 text-white">
+      <h3 class="text-tertiary text-2xl" v-if="!!subBreed">Sub-breeds</h3>
       <ul v-if="!!subBreed" class="space-y-2">
         <li
           v-for="breed in subBreed"

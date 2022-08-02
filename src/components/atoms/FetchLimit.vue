@@ -4,6 +4,7 @@
     type="text"
     :value="limit"
     @input="HandleInput"
+    @blur="HandleBlur"
     class="inline-flex w-[40px] focus:outline-none
     font-semibold p-1.5 ring-2 ring-tertiary/10
     rounded-l-sm">
@@ -24,11 +25,11 @@ const limit = computed(() => store.state.fetchLimit)
 const fetchingDogs = computed(() => store.state.fetchingDogs)
 const HandleInput = (e) => store.commit('setFetchLimit', +e.target.value)
 
-watch(limit, (newValue) => {
-  if(+newValue > 0) {
-    store.commit('setFetchLimit', +newValue)
+const HandleBlur = () => {
+  if(+limit.value > 0) {
+    store.commit('setFetchLimit', +limit.value)
   } else {
     store.commit('setFetchLimit', 100)
   }
-})
+}
 </script>

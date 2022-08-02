@@ -31,13 +31,19 @@ import Search from './Search.vue'
 import AmountFetched from './atoms/FetchLimit.vue'
 import { watch, computed, ref } from 'vue'
 import { useStore } from 'vuex'
+import { useRoute, useRouter } from 'vue-router'
 
 const store = useStore()
 const breedSearched = ref('all')
 const searchBreed = computed(() => store.state.searchBreed)
+const route = useRoute()
+const router = useRouter()
 const fetchRandomDogs = () => {
   store.dispatch('fetchRandomDogs', store.state.fetchLimit)
   // incase the user has searched for a breed, reset it
+  store.commit('setSearchBreed', null)
+  // once we've searched for random, clear previous query if exist
+  router.replace({ query: null })
   store.commit('setSearchBreed', null)
 }
 </script>

@@ -20,15 +20,26 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { useStore } from 'vuex'
 import { breakpointsTailwind, useBreakpoints } from '@vueuse/core'
+import { useRoute } from 'vue-router'
+
 import DogCard from './DogCard.vue'
 import Customization from './Customization.vue';
 import CardSkeleton from './atoms/CardSkeleton.vue';
 
 const store = useStore()
-store.dispatch('fetchRandomDogs', store.state.fetchLimit) // fetch on created
+const route = useRoute()
+if (!!route.query.breed) {
+  // means a breed was searched before
+  // note: we're not making sure the breed exists
+  store.commit('setSearchBreed', route.query.breed)
+  store.commit('setFetchLimit', route.query.limit)
+  store.dispatch('fetchByBreed', { breed: route.query.breed, limit: route.query.limit })
+} else {
+  store.dispatch('fetchRandomDogs', store.state.fetchLimit) // fetch on created
+}
 store.dispatch('fetchAllBreedNames') // fetch on created
 const dogs = computed(() => store.state.dogs)
 const fetchingDogs = computed(() => store.state.fetchingDogs)

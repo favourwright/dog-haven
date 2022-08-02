@@ -77,9 +77,7 @@ const getters = {
   // const breeds = computed(()=>Object.entries(store.state.allBreeds).map(([key, value]) => key))
   getSubBreeds(state) {
     return breed => {
-      // console.log(state.allBreeds);
-      // console.log(breed);
-      return state.allBreeds[breed]
+      return !!state.allBreeds[breed] ? state.allBreeds[breed] : []
     }
   }
 }

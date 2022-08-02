@@ -9,13 +9,14 @@
   <section class="px-[6%] pt-4">
     <h1 class="text-4xl capitalize">Breed: {{breedName}}</h1>
     <div class="pt-4 text-white">
-      <h3 class="text-tertiary text-2xl" v-if="!!subBreed">Sub-breeds</h3>
-      <ul v-if="!!subBreed" class="flex flex-wrap gap-2">
+      <h3 class="text-tertiary text-2xl" v-if="subBreeds.length">Sub-breeds</h3>
+      <ul v-if="subBreeds.length" class="flex flex-wrap gap-2">
         <li
-          v-for="breed in subBreed"
-          :key="`subBreed${breed}`"
-          class="bg-tertiary px-3 py-1">
-          {{breed}}
+          v-for="sub in subBreeds"
+          :key="`subBreed-${sub}`"
+          :class="[sub === subBreedName?'bg-primary text-tertiary font-semibold':'bg-tertiary']"
+          class="px-3 py-1 border-2 border-tertiary">
+          {{sub}}
         </li>
       </ul>
       <p class="px-3 py-1 bg-tertiary" v-else>No sub-breeds for {{breedName}}</p>
@@ -41,8 +42,9 @@ const imgName = ref(route.params.id)
 const imgExt = ref(getExt.value)
 const breed = ref(route.query.breed.split(' ').join('-'))
 const breedName = ref(route.query.breed)
-let subBreed = store.getters.getSubBreeds(breed.value.split('-')[0])
-let breeds = store.getters.getAllBreeds
+const subBreedName = ref(breedName.value.split(' ').slice(-1)[0])
+const subBreeds = ref(store.getters.getSubBreeds(breed.value.split('-')[0]))
+const breeds = ref(store.getters.getAllBreeds)
 
 // because of keep-alive, we need to manually update the image name
 onActivated(() => {
@@ -50,14 +52,14 @@ onActivated(() => {
   imgExt.value = getExt.value
   breed.value = route.query.breed.split(' ').join('-')
   breedName.value = route.query.breed
+  subBreedName.value = route.query.breed.split(' ').slice(-1)[0]
 
   // if allBreeds is empty, get all breeds
-  breeds = store.getters.getAllBreeds
+  breeds.value = store.getters.getAllBreeds
   if (!breeds.length) {
     store.dispatch('fetchAllBreedNames')
   }
-  subBreed = store.getters.getSubBreeds(breed.value.split('-')[0])
-  // console.log(subBreed);
+  subBreeds.value = store.getters.getSubBreeds(breed.value.split('-')[0])
 })
 </script>
 

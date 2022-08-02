@@ -57,14 +57,16 @@
 import { useDebounceFn } from '@vueuse/core'
 import { ref, computed, watch } from 'vue'
 import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
 let searchQuery = ref('')
 let searchable = ref(false)
 const store = useStore()
 const breeds = computed(()=>Object.entries(store.state.allBreeds).map(([key, value]) => key))
 
 watch(searchQuery, (val) => {
-  if (val.length > 0) {
+  if (val.trim().length > 0) {
     searchable.value = true
     // when user is typing, debounce and call HandleSearch
     debouncedFn()
@@ -76,13 +78,14 @@ const rendered_breed_hint = ref([])
 const HandleSearch = (manual=false) =>{
   // filter/search through local dogs list using searchQuery
   const filtered_breeds = breeds.value.filter(breed => breed.toLowerCase().includes(searchQuery.value.toLowerCase()))
-  if (filtered_breeds.length > 0) {
+  if (filtered_breeds.length > 0 && searchable.value) {
     rendered_breed_hint.value = filtered_breeds
     const first = rendered_breed_hint.value[0] // only one name is needed
     // to prevent multiple calls fetch only when a user
     // presses enter or clicks on the search button
     if(manual){
-      // to be  displayed on input
+      // set router breed query to first
+      router.push({ query: {breed: first, limit: store.state.fetchLimit} })
       searchQuery.value = ''
       rendered_breed_hint.value = []
       store.commit('setSearchBreed', first)
@@ -91,7 +94,8 @@ const HandleSearch = (manual=false) =>{
     }
   } else {
     // handle not found
-    store.commit('setSearchBreed', null)
+    // make sure there wasn't a filtered list first
+    filtered_breeds.length > 0 ? null : store.commit('setSearchBreed', null)
     rendered_breed_hint.value = []
   }
 }

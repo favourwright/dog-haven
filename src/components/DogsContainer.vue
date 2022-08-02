@@ -35,6 +35,7 @@ if (!!route.query.breed) {
   // means a breed was searched before
   // note: we're not making sure the breed exists
   store.commit('setSearchBreed', route.query.breed)
+  store.commit('setFetchLimit', route.query.limit)
   store.dispatch('fetchByBreed', { breed: route.query.breed, limit: route.query.limit })
 } else {
   store.dispatch('fetchRandomDogs', store.state.fetchLimit) // fetch on created

@@ -1,6 +1,19 @@
 <template>
 <section class="landing bg-tertiary text-white relative">
-  
+  <div class="title">
+    <div class="title-inner pl-[6%] text-5xl md:text-7xl">
+      <div class="cafe">
+        <div class="cafe-inner">Dogs should be</div>
+      </div>
+      <div class="mozart">
+        <div class="mozart-inner">Happy</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="image">
+    <img src='https://images.unsplash.com/photo-1583511655826-05700d52f4d9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1376&q=80' alt=''>
+  </div>
 </section>
 </template>
 

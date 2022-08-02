@@ -57,7 +57,9 @@
 import { useDebounceFn } from '@vueuse/core'
 import { ref, computed, watch } from 'vue'
 import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
 let searchQuery = ref('')
 let searchable = ref(false)
 const store = useStore()
@@ -82,7 +84,8 @@ const HandleSearch = (manual=false) =>{
     // to prevent multiple calls fetch only when a user
     // presses enter or clicks on the search button
     if(manual){
-      // to be  displayed on input
+      // set router breed query to first
+      router.push({ query: {breed: first, limit: store.state.fetchLimit} })
       searchQuery.value = ''
       rendered_breed_hint.value = []
       store.commit('setSearchBreed', first)

@@ -11,7 +11,7 @@
         :key="`breed-${i}`"
         @click="HandleHintClicks(breed)"
         class="bg-primary/5 py-1.5 px-4 even:bg-primary/0 hover:cursor-pointer
-        hover:bg-primary/10 transition duration-300">
+        hover:bg-primary/40 transition duration-300">
         {{breed}}
       </li>
     </ul>
@@ -19,8 +19,6 @@
   <div class="w-40 md:w-96 xl:w-96 transition-all duration-300">
     <div
       class="input-group relative flex items-stretch w-full rounded-sm">
-      <!-- @keydown="HandleSearch(false)" because I want only hints -->
-      <!-- this is needed on mobile because inputs want for change to fire -->
       <input
         v-model="searchQuery"
         @keyup.enter="HandleSearch(true)"
@@ -28,7 +26,7 @@
         class="relative flex-auto min-w-0 block w-full
         placeholder-tertiary focus:placeholder-slate-300
         px-3 py-1.5 text-base font-normal text-tertiary bg-white
-        ring-2 ring-primary/10
+        ring-2 ring-primary/40
         bg-clip-padding border-none rounded-l-sm rounded-r-none transition ease-in-out
         m-0 focus:text-tertiary focus:ring-primary focus:outline-none"
         placeholder="Search breeds" aria-label="Search breeds" aria-describedby="button-addon2">
@@ -36,7 +34,7 @@
         @click="HandleSearch(true)"
         :class="[searchable?
         'bg-primary text-white ring-primary':
-        'bg-primary/10 text-tertiary/20 ring-primary/10']"
+        'bg-primary/40 text-tertiary/20 ring-primary/40']"
         class="input-group-text flex items-center px-3 py-1.5 text-base rounded-r-sm
         font-normal text-center whitespace-nowrap transition-all duration-300
         ring-2"

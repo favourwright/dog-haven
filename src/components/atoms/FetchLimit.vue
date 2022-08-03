@@ -6,12 +6,12 @@
     @input="HandleInput"
     @blur="HandleBlur"
     class="inline-flex w-[40px] focus:outline-none
-    font-semibold p-1.5 ring-2 ring-tertiary/10
+    font-semibold p-1.5 ring-2 ring-primary/40
     rounded-l-sm">
   <span
-    class="p-2 bg-tertiary/10
+    class="p-2 bg-primary/40
     rounded-r-sm select-none font-semibold">
-    {{!fetchingDogs?'fetched':'fetching'}}
+    {{!fetchingDogs?'Per-page':'Fetching...'}}
   </span>
 </div>
 </template>

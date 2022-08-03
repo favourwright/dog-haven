@@ -8,6 +8,7 @@ const state = {
   searchBreed: null,
   fetchingDogs: false,
   fetchingError: false,
+  fetchChunks: [],
 }
 
 const mutations = {
@@ -28,56 +29,58 @@ const mutations = {
   },
   setFetchingError(state, error) {
     state.fetchingError = error
+  },
+  setFetchChunks(state, chunks) {
+    state.fetchChunks = chunks
   }
 }
 
 const actions = {
   // fetch dogs from API https://dog.ceo/api/breeds/image/random/50
-  fetchRandomDogs({ commit }, limit) {
+  fetchRandomDogs({ state, commit, dispatch }, limit) {
     commit('setFetchingDogs', true)
     // maximum returned by api = 50, if limit > 50, use promise.all to fetch more
-    if (limit > 50) {
-      const promises = []
-      for (let i = 0; i < limit; i++) {
-        promises.push(axios.get('https://dog.ceo/api/breeds/image/random'))
-      }
-      Promise.all(promises)
-        .then(responses => {
-          const dogs = []
-          responses.forEach(response => {
-            dogs.push(response.data.message)
-          })
-          commit('setDogs', dogs)
-          commit('setFetchingDogs', false)
+    // get minimum number of requests to make
+    dispatch('chunckFetch', {num:limit, max:50})
+    const promises = []
+    state.fetchChunks.forEach(chunck => {
+      promises.push(axios.get(`https://dog.ceo/api/breeds/image/random/${chunck}`))
+    })
+    Promise.all(promises)
+      .then(responses => {
+        const dogs = []
+        responses.forEach(response => {
+          dogs.push(...response.data.message)
         })
-        .catch(error => {
-          commit('setFetchingError', true)
-          commit('setFetchingDogs', false)
-        })
-    } else {
-      axios.get(`https://dog.ceo/api/breeds/image/random/${limit}`)
-        .then(response => {
-          commit('setDogs', response.data.message)
-          commit('setFetchingDogs', false)
-        })
-        .catch((error)=>{
-          commit('setFetchingDogs', false)
-          commit('setFetchingError', true)
-        })
-    }
+        commit('setDogs', dogs)
+        commit('setFetchingDogs', false)
+      })
+      .catch(error => {
+        commit('setFetchingError', true)
+        commit('setFetchingDogs', false)
+      })
   },
   // fetch related breeds from a given breed
   // https://dog.ceo/api/breed/hound/images/random/100
   fetchByBreed({ commit }, { breed, limit }) {
     commit('setFetchingDogs', true)
-    axios.get(`https://dog.ceo/api/breed/${breed}/images/random/${limit}`)
-      .then(response => {
-        commit('setDogs', response.data.message)
+    dispatch('chunckFetch', {num:limit, max:50})
+    const promises = []
+    state.fetchChunks.forEach(chunck => {
+      promises.push(axios.get(`https://dog.ceo/api/breed/${breed}/images/random/${chunck}`))
+    })
+    Promise.all(promises)
+      .then(responses => {
+        const dogs = []
+        responses.forEach(response => {
+          dogs.push(...response.data.message)
+        })
+        commit('setDogs', dogs)
         commit('setFetchingDogs', false)
       })
-      .catch((error)=>{
-        commit('setFetchingDogs', false)
+      .catch(error => {
         commit('setFetchingError', true)
+        commit('setFetchingDogs', false)
       })
   },
   // https://dog.ceo/api/breeds/list/all
@@ -87,6 +90,21 @@ const actions = {
         commit('setAllBreeds', response.data.message)
       })
       .catch((error)=>console.log(error))
+  },
+  // 50 is the maximum images returned by the API
+  // so if user requests more than 50, use promise.all to fetch more
+  // but get array of how limits are requested to aviod multiple requests
+  chunckFetch({ commit }, { num, max }){
+    const arr = []
+    let i = 0
+    while ((i < num) && (num-i >= max)) {
+      arr.push(max)
+      i += max
+    }
+    if(num-i <= max && num-i > 0){
+      arr.push(num-i)
+    }
+    commit('setFetchChunks', arr)
   }
 }
 

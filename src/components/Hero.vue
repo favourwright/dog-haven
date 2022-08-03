@@ -4,16 +4,23 @@
   <div class="h-screen flex justify-center items-center">
     <div class="w-96 h-40 bg-white">
       <CarouselControls
+        :play="paused"
+        :duration="3000"
         :current="1"
         :slides_count="5" />
+      <button
+        class="bg-blue-700 mt-10 p-2 px-4"
+        @click="paused=!paused">toggle play</button>
     </div>
   </div>
 </section>
 </template>
 
 <script setup>
+import { ref } from 'vue';
 import CarouselControls from './CarouselControls.vue';
 
+const paused = ref(false)
 </script>
 
 <style scoped>

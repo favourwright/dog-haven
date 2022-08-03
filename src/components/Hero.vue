@@ -1,18 +1,19 @@
 <template>
 <section
-  @click="paused=!paused"
   class="landing bg-tertiary text-white relative overflow-hidden">
   <div class="h-screen flex justify-center items-center">
-    <AutoPlayProgress :play="paused" :duration="1000" />
+    <div class="w-96 h-40 bg-white">
+      <CarouselControls
+        :current="1"
+        :slides_count="5" />
+    </div>
   </div>
 </section>
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import AutoPlayProgress from './atoms/AutoPlayProgress.vue';
+import CarouselControls from './CarouselControls.vue';
 
-const paused = ref(false)
 </script>
 
 <style scoped>

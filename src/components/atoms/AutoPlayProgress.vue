@@ -1,5 +1,5 @@
 <template>
-  <div class="progress h-[2px] w-40 bg-white/20 relative">
+  <div class="progress min-h-[1px] min-w-[30px] bg-white/20 relative">
     <div class="indicator" :class="[play?'running':'paused']"></div>
   </div>
 </template>

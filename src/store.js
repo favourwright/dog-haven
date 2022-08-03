@@ -62,7 +62,7 @@ const actions = {
   },
   // fetch related breeds from a given breed
   // https://dog.ceo/api/breed/hound/images/random/100
-  fetchByBreed({ commit }, { breed, limit }) {
+  fetchByBreed({ commit, state, dispatch }, { breed, limit }) {
     commit('setFetchingDogs', true)
     dispatch('chunckFetch', {num:limit, max:50})
     const promises = []

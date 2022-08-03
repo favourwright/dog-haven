@@ -1,0 +1,9 @@
+<template>
+  <main class="w-full h-screen flex px-[6%] justify-center items-center">
+    <div>
+      <h1 class="text-6xl font-semibold text-gray-300">404: Error</h1>
+      <h1 class="text-6xl font-semibold">Did you say <span class="text-primary">fetch</span>?</h1>
+      <p class="mt-4 translate-x-1 text-xl text-gray-500">Too bad we couldn't find the it</p>
+    </div>
+  </main>
+</template>

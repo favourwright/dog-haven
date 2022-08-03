@@ -15,6 +15,11 @@ const router = createRouter({
       // lazy load this component incase it is not needed
       component: () => import(/* webpackChunkName: "about" */'../views/AboutDog.vue')
     },
+    {
+      path: '/:pathMatch(.*)*',
+      name: 'NotFound',
+      component: () => import(/* webpackChunkName: "NotFound" */'../views/404.vue')
+    }
   ]
 })
 

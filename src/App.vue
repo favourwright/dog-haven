@@ -1,11 +1,13 @@
 <template>
-  <Header />
-  <RouterView v-slot="{ Component }">
-    <keep-alive>
-      <component :is="Component" />
-    </keep-alive>
-  </RouterView>
-  <Footer />
+  <main class="w-screen">
+    <Header />
+    <RouterView v-slot="{ Component }">
+      <keep-alive>
+        <component :is="Component" />
+      </keep-alive>
+    </RouterView>
+    <Footer />
+  </main>
 </template>
 
 <script setup>

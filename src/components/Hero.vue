@@ -1,5 +1,5 @@
 <template>
-<section class="landing bg-tertiary text-white relative">
+<section class="landing bg-tertiary text-white relative overflow-hidden">
   <div class="title">
     <div class="title-inner pl-[6%] text-5xl md:text-7xl">
       <div class="cafe">

@@ -3,7 +3,7 @@
   <Customization class="absolute bottom-[99.9%] z-10" />
   <section class="overflow-hidden text-gray-700">
     <div class="pt-2 px-[6%]">
-      <div class="flex flex-wrap md:gap-0 bg-tertiary/10 rounded-2xl">
+      <div class="flex flex-wrap md:gap-0 bg-tertiary/10">
         <template v-if="fetchingDogs">
           <CardSkeleton v-for="n in skeletonAmount" :key="n" />
         </template>

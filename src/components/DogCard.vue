@@ -5,7 +5,7 @@
       <LazyImage
         alt="gallery"
         class="block object-cover object-center w-full h-52 md:h-96
-        rounded-xl md:rounded-lg relative overflow-hidden transition duration-300"
+        rounded-sm relative overflow-hidden transition duration-300"
         :source='source'>
         <figcaption
           :class="{'show':showCaption}"

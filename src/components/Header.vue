@@ -1,6 +1,6 @@
 <template>
 <header
-  class="h-16 fixed top-0 left-0 right-0
+  class="h-16 fixed top-0 left-0 w-full
   flex items-center justify-between px-[6%] z-20
   bg-white/80 backdrop-blur">
   <Logo />

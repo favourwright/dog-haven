@@ -1,7 +1,7 @@
 <template>
   <main>
     <Hero />
-    <DogsContainer />
+    <!-- <DogsContainer /> -->
   </main>
 </template>
 <script setup>

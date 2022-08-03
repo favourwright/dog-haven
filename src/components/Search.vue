@@ -62,16 +62,6 @@ let searchQuery = ref('')
 let searchable = ref(false)
 const store = useStore()
 const breeds = computed(()=>Object.entries(store.state.allBreeds).map(([key, value]) => key))
-
-watch(searchQuery, (val) => {
-  if (val.trim().length > 0) {
-    searchable.value = true
-    // when user is typing, debounce and call HandleSearch
-    debouncedFn()
-  } else {
-    searchable.value = false
-  }
-})
 const rendered_breed_hint = ref([])
 const HandleSearch = (manual=false) =>{
   // filter/search through local dogs list using searchQuery
@@ -103,5 +93,15 @@ const HandleHintClicks = (breed) => {
   HandleSearch(true)
   rendered_breed_hint.value = []
 }
+
 const debouncedFn = useDebounceFn(HandleSearch, 1000)
+watch(searchQuery, (val) => {
+  if (val.trim().length > 0) {
+    searchable.value = true
+    // when user is typing, debounce and call HandleSearch
+    debouncedFn()
+  } else {
+    searchable.value = false
+  }
+})
 </script>

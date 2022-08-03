@@ -32,18 +32,39 @@ const mutations = {
 }
 
 const actions = {
-  // fetch dogs from API https://dog.ceo/api/breeds/image/random/100
+  // fetch dogs from API https://dog.ceo/api/breeds/image/random/50
   fetchRandomDogs({ commit }, limit) {
     commit('setFetchingDogs', true)
-    axios.get(`https://dog.ceo/api/breeds/image/random/${limit}`)
-      .then(response => {
-        commit('setDogs', response.data.message)
-        commit('setFetchingDogs', false)
-      })
-      .catch((error)=>{
-        commit('setFetchingDogs', false)
-        commit('setFetchingError', true)
-      })
+    // maximum returned by api = 50, if limit > 50, use promise.all to fetch more
+    if (limit > 50) {
+      const promises = []
+      for (let i = 0; i < limit; i++) {
+        promises.push(axios.get('https://dog.ceo/api/breeds/image/random'))
+      }
+      Promise.all(promises)
+        .then(responses => {
+          const dogs = []
+          responses.forEach(response => {
+            dogs.push(response.data.message)
+          })
+          commit('setDogs', dogs)
+          commit('setFetchingDogs', false)
+        })
+        .catch(error => {
+          commit('setFetchingError', true)
+          commit('setFetchingDogs', false)
+        })
+    } else {
+      axios.get(`https://dog.ceo/api/breeds/image/random/${limit}`)
+        .then(response => {
+          commit('setDogs', response.data.message)
+          commit('setFetchingDogs', false)
+        })
+        .catch((error)=>{
+          commit('setFetchingDogs', false)
+          commit('setFetchingError', true)
+        })
+    }
   },
   // fetch related breeds from a given breed
   // https://dog.ceo/api/breed/hound/images/random/100

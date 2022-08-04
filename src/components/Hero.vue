@@ -1,17 +1,18 @@
 <template>
 <section
-  class="landing bg-tertiary text-white relative overflow-hidden">
-  <div class="min-h-screen flex justify-center items-center">
-    <div class="w-[300px]">
+  class="landing w-full bg-tertiary text-white relative overflow-hidden">
+  <div class="h-full flex justify-start items-end">
+    <div class="w-[500px]">
 
       <section
-        class="bg-pink-800/50 p-2 w-[110%] overflow-hidden">
-        <div class="images flex justify-end gap-3">          
+        class="bg-pink-800/50 w-[110%] overflow-hidden">
+        <div class="images flex justify-end items-end gap-3">          
           <div
             v-for="n in 5"
             :key="n"
-            class="flex-none image w-32 h-48">
+            class="flex-none image w-32 h-48 last-of-type:h-56 last-of-type:w-40">
             <img
+              class="w-full h-full object-cover"
               src='https://images.unsplash.com/photo-1583511655826-05700d52f4d9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1376&q=80'
               alt=''>
           </div>

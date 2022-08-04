@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <main class="w-full min-h-screen">
     <Hero />
     <!-- <DogsContainer /> -->
   </main>

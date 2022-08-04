@@ -1,5 +1,5 @@
 <template>
-  <main class="w-screen">
+  <main class="w-full">
     <Header />
     <RouterView v-slot="{ Component }">
       <keep-alive>

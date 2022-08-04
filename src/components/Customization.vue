@@ -29,7 +29,7 @@
 <script setup>
 import Search from './Search.vue'
 import AmountFetched from './atoms/FetchLimit.vue'
-import { watch, computed, ref } from 'vue'
+import { computed, ref } from 'vue'
 import { useStore } from 'vuex'
 import { useRoute, useRouter } from 'vue-router'
 

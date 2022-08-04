@@ -17,7 +17,7 @@
 </template>
 
 <script setup>
-import { computed, ref, watch } from 'vue'
+import { computed } from 'vue'
 import { useStore } from 'vuex'
 
 const store = useStore()

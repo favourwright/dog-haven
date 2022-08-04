@@ -4,6 +4,7 @@
   <div class="h-screen flex justify-center items-center">
     <div class="w-96 h-40 bg-white">
       <CarouselControls
+        @seek="HandleSeek"
         :play="paused"
         :duration="3000"
         :current="1"
@@ -21,6 +22,13 @@ import { ref } from 'vue';
 import CarouselControls from './CarouselControls.vue';
 
 const paused = ref(false)
+const HandleSeek = (direction) => {
+  if (direction === -1) {
+    console.log('previous')
+  } else {
+    console.log('next')
+  }
+}
 </script>
 
 <style scoped>

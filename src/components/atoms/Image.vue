@@ -22,6 +22,7 @@ const unwatch = watch(src, (new_source) => {
   if(new_source!==''){
     source_available.value = true
     isLoading.value = useImage({src: new_source}).isLoading
+    unwatch() // cleanup
   }
 }, { immediate: true })
 </script>

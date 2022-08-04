@@ -9,13 +9,14 @@
       </template>
       <AutoPlayProgress
         class="w-full h-[2px]"
+        :reset_count="reset_count"
         :play="play"
         :duration="duration" />
     </div>
     <div class="seek pr-6 flex justify-center items- h-full">
       <button
-        @click="emit('seek', -1)"
-        class="px-1 flex items-center">
+        @click="HandleSeek(-1)"
+        class="px-2 flex items-center">
         <svg
           class="w-4 h-4 fill-white"
           xmlns="http://www.w3.org/2000/svg"
@@ -24,8 +25,8 @@
         </svg>
       </button>
       <button
-        @click="emit('seek', 1)"
-        class="px-4 flex items-center">
+        @click="HandleSeek(1)"
+        class="px-2 flex items-center">
         <svg
           class="w-4 h-4 fill-white"
           xmlns="http://www.w3.org/2000/svg"
@@ -38,6 +39,7 @@
 </template>
 
 <script setup>
+import { ref } from 'vue';
 import AutoPlayProgress from './atoms/AutoPlayProgress.vue';
 
 const emit = defineEmits({
@@ -64,4 +66,9 @@ const props = defineProps({
     required: true
   }
 })
+const reset_count = ref(0)
+const HandleSeek = (direction) => {
+  emit('seek', direction)
+  reset_count.value++
+}
 </script>

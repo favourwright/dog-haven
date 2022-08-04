@@ -5,13 +5,13 @@
     <div class="w-96 h-40 bg-white">
       <CarouselControls
         @seek="HandleSeek"
-        :play="paused"
+        :play="true"
         :duration="3000"
         :current="1"
         :slides_count="5" />
-      <button
+      <!-- <button
         class="bg-blue-700 mt-10 p-2 px-4"
-        @click="paused=!paused">toggle play</button>
+        @click="paused=!paused">toggle play</button> -->
     </div>
   </div>
 </section>
@@ -21,7 +21,7 @@
 import { ref } from 'vue';
 import CarouselControls from './CarouselControls.vue';
 
-const paused = ref(false)
+// const paused = ref(false)
 const HandleSeek = (direction) => {
   if (direction === -1) {
     console.log('previous')

@@ -1,22 +1,22 @@
 <template>
   <div
-    class="w-full bg-pink-800 h-10 flex gap-6
-    justify-center items-center select-none">
-    <div class="w-full flex gap-4 justify-center items-center px-4">
+    class="w-full min-h-[40px] flex gap-6
+    justify-center select-none">
+    <div class="w-full flex gap-4 justify-center items-center pr-4">
       <template v-if="slides_count>1">
         <div class="">0{{current}}</div>
         <div class="order-last">0{{slides_count}}</div>
       </template>
       <AutoPlayProgress
         class="w-full h-[2px]"
-        :reset_count="reset_count"
+        :current="current"
         :play="play"
         :duration="duration" />
     </div>
-    <div class="seek pr-6 flex justify-center items- h-full">
+    <div class="seek flex justify-center items-center">
       <button
-        @click="HandleSeek(-1)"
-        class="px-2 flex items-center">
+        @click="emit('seek', -1)"
+        class="px-2 flex items-center h-full hover:bg-white/5">
         <svg
           class="w-4 h-4 fill-white"
           xmlns="http://www.w3.org/2000/svg"
@@ -25,8 +25,8 @@
         </svg>
       </button>
       <button
-        @click="HandleSeek(1)"
-        class="px-2 flex items-center">
+        @click="emit('seek', 1)"
+        class="px-2 flex items-center h-full hover:bg-white/5">
         <svg
           class="w-4 h-4 fill-white"
           xmlns="http://www.w3.org/2000/svg"
@@ -39,7 +39,6 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
 import AutoPlayProgress from './atoms/AutoPlayProgress.vue';
 
 const emit = defineEmits({
@@ -66,9 +65,4 @@ const props = defineProps({
     required: true
   }
 })
-const reset_count = ref(0)
-const HandleSeek = (direction) => {
-  emit('seek', direction)
-  reset_count.value++
-}
 </script>

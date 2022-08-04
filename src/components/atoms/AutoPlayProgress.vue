@@ -18,16 +18,16 @@ const props = defineProps({
     type: Number, // milliseconds
     required: true
   },
-  reset_count: {
+  current: {
     type: Number,
     default: 0
   }
 })
 const duration_in_ms = computed(() => props.duration+'ms')
 const animate = ref(true)
-const _reset_count = computed(() => props.reset_count)
+const current_ = computed(() => props.current)
 
-watch(_reset_count, () => {
+watch(current_, () => {
   // flash a value of false to animate the indicator
   animate.value = false
   setTimeout(() => animate.value = true, 0)

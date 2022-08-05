@@ -1,6 +1,7 @@
 <template>
 <section
-  class="landing w-full bg-tertiary text-white relative overflow-hidden">
+  class="landing w-full bg-tertiary text-white
+  relative overflow-hidden mt-16">
   <div class="h-full flex justify-start items-end">
     <div class="w-full md:w-[500px] bg-pink-800/20">
       <Carousel />

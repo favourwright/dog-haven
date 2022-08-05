@@ -1,12 +1,10 @@
 <template>
-  <div>
+  <div class="carousel">
     <section
       class="w-full md:w-[110%] overflow-hidden">
-      <div
-        class="slides flex justify-start items-end flex-row-reverse gap-3">          
+      <div class="slides flex justify-start items-end flex-row-reverse gap-3">          
         <div
-          v-for="n in 6"
-          :key="n"
+          v-for="n in slides" :key="n"
           class="flex-none card w-32 h-48">
           <img
             class="w-full h-full object-cover"
@@ -27,7 +25,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import CarouselControls from './CarouselControls.vue';
 // I could emmit the current slide number to the hero page later
 
@@ -42,13 +40,53 @@ const HandleSeek = (direction) => {
   }
 }
 
-// width of first & second child are different
-const card_width = ref('160px')
+const slides = [1,2,3,4,5,6]
+// width of first & second child are same but different from the rest
+const large_card_width = ref(null)
+onMounted(()=>large_card_width.value = document.querySelector('.card').getBoundingClientRect().width+'px')
+
+const card_details = ref([])
+// update array of cards widths
+const updateCardDetails = detail => {
+  card_details.value = [
+    ...card_details.value,
+    detail
+  ]
+}
+// update -- data-number affter each unshift() & push()
+
+const CreateIntersectionObserver = (root, target, callback)=>{
+  let options = {
+    root: document.querySelector(root),
+    rootMargin: '0px',
+    threshold: [0, 1.0]
+  }
+  let observer = new IntersectionObserver(callback, options)
+  document.querySelectorAll(target).forEach(el => observer.observe(el))
+}
+
+onMounted(()=>{
+  CreateIntersectionObserver('.carousel', '.card', (entries, observer)=>{
+    card_details.value=[] // clear previous data
+    entries.forEach((entry) => {
+      const { right, width } = entry.boundingClientRect
+      const ratio = entry.intersectionRatio
+      const isIntersecting = entry.isIntersecting 
+      updateCardDetails({ right, width, ratio, isIntersecting })
+      //   entry.intersectionRect
+      //   entry.rootBounds
+      //   entry.target
+      //   entry.time
+    })
+    console.log(card_details.value);
+  })
+})
 </script>
 
 <style scoped>
+/* move container over to hide the first(from the right) element*/
 .slides{
-  transform: translateX(v-bind(card_width))
+  transform: translateX(v-bind(large_card_width))
 }
 .slides > .card:nth-of-type(1),
 .slides > .card:nth-of-type(2){

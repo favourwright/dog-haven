@@ -35,13 +35,15 @@ import CarouselControls from './CarouselControls.vue';
 
 const current = ref(1)
 const HandleSeek = (direction) => {
-  if (direction === -1) {
-    console.log('previous')
-    current.value++
-  } else {
-    console.log('next')
-    current.value++
-  }
+  direction === -1 ? prev() : next()
+  console.log(current.value)
+}
+// calculate current value noting that once we reach the end we start from the beginning
+const next = () => {
+  current.value = current.value === slides.length ? 1 : current.value + 1
+}
+const prev = () => {
+  current.value = current.value === 1 ? slides.length : current.value - 1
 }
 
 const slides = [
@@ -74,7 +76,7 @@ const original_card_details = ref([])
 const card_details = ref([])
 // this ref contains all the card elements
 const card = ref(null)
-onMounted(()=>console.log(card.value))
+// onMounted(()=>console.log(card.value))
 
 // next(){
 //   this.active_index = Math.abs((this.active_index + 1) % this.testimonials.length)

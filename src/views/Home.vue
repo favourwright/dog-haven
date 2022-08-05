@@ -1,7 +1,7 @@
 <template>
   <main class="w-full min-h-screen">
     <Hero />
-    <!-- <DogsContainer /> -->
+    <DogsContainer />
   </main>
 </template>
 <script setup>

@@ -4,7 +4,7 @@
     <div class="w-full p-1 md:p-2 relative">
       <LazyImage
         alt="gallery"
-        class="block object-cover object-center w-full h-52 md:h-96
+        class="lazy-image block object-cover object-center w-full h-52 md:h-96
         rounded-sm relative overflow-hidden transition duration-300"
         :source='source'>
         <figcaption
@@ -51,7 +51,7 @@ const imageExt = computed(() => image.value.split('.')[1])
 </script>
 
 <style scoped>
-:global(.card:hover img) {
+:global(.card:hover .lazy-image img) {
   @apply scale-110
 }
 .card:hover button{

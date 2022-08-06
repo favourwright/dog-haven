@@ -1,10 +1,18 @@
 <template>
 <main class="min-h-screen">
-  <section class="landing w-full">
+  <section class="landing w-full relative">
     <img
       class="w-full h-full object-cover object-top md:object-center"
       :src="`https://images.dog.ceo/breeds/${breed}/${imgName}.${imgExt}`"
       :alt="`dog breed ${breed}`">
+    <div class="absolute bottom-4 right-4">
+      <a
+        class="inline-block p-2 bg-white/80 rounded-sm"
+        :href="`https://images.dog.ceo/breeds/${breed}/${imgName}.${imgExt}`"
+        target="_blank" download>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+      </a>
+    </div>
   </section>
   <section class="px-[6%] pt-4">
     <h1 class="text-4xl capitalize">Breed: {{breedName}}</h1>

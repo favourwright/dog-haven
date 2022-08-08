@@ -36,9 +36,9 @@ import CarouselControls from './CarouselControls.vue';
 const current = ref(1)
 const original_card_details = ref([])
 const card_details = ref([])
+const getCurrentCardDetails = ref(null)
 // this ref contains all the card elements
 const cards = ref(null)
-const slide_duration = 300
 const slides = [
   {
     id: '05700d52f4d9',
@@ -66,8 +66,6 @@ const slides = [
   }
 ]
 
-const large_card_width = ref(null)
-onMounted(()=>large_card_width.value = document.querySelector('.card').getBoundingClientRect().width+'px')
 const card_gap = computed(()=>{
   // minus the position of the last card from the position of the first
   const container_size = Math.abs(card_details.value.slice(-1)[0].left - card_details.value[0].left)
@@ -85,23 +83,27 @@ const HandleSeek = (direction) => {
 // calculate current value noting that once we reach the end we start from the beginning
 const next = () => {
   current.value = current.value === slides.length ? 1 : current.value + 1
-  move('+')
+  move('+', 3000)
 }
 const prev = () => {
   current.value = current.value === 1 ? slides.length : current.value - 1
-  move('-')
+  move('-', 3000)
 }
-const move = direction => {
+const time_out = ref(false)
+const move = (direction, slide_duration) => {
+  if(!!time_out.value){ time_out.value = clearTimeout(time_out.value);console.log('clearing'); }
   // translate all cards by their width
   cards.value.forEach((card,i) => {
     card.style.transition = `all ${slide_duration}ms ease-in-out`
-    // console.log(`${direction + (card_details.value[i].width + +card_gap.value)}px`);
-    card.style.transform = `translateX(calc((100% + ${card_gap.value}px) * ${direction}1))`
-    // card.style.transform = `translateX(${+(direction+1) * (card_details.value[i].width + +card_gap.value)}px)`
-    setTimeout(() => {
+    // card.style.transform = `translateX(calc((100% + ${card_gap.value}px) * ${direction}1))`
+    card.style.transform = `translateX(${+(direction+1) * (card_details.value[i].width + +card_gap.value)}px)`
+    time_out.value = setTimeout(() => {
       // clear the transition after the transition is over
+      console.log('done');
     }, slide_duration)
   })
+  card_details.value = getCurrentCardDetails.value()
+  console.log('card_details', card_details.value);
 }
 
 // next(){
@@ -131,34 +133,29 @@ const move = direction => {
 
 // width of first & second child are same but different from the rest
 
-const CreateIntersectionObserver = (root, target, callback)=>{
-  let options = {
-    root: document.querySelector(root),
-    rootMargin: '0px',
-    threshold: [0, 0.5, 1]
+const GetElemCurrentDetails = elem => {
+  const node_list = typeof(elem)==='string'?document.querySelectorAll(elem):elem
+  let details = []
+  return ()=>{
+    details = [] // clear previous data
+    node_list.forEach(node=>{
+      const rect = node.getBoundingClientRect()
+      details = [...details, {
+        left:rect.left,
+        width:rect.width,
+      }]
+    })
+    return details
   }
-  let observer = new IntersectionObserver(callback, options)
-  document.querySelectorAll(target).forEach(el => observer.observe(el))
 }
 
+const large_card_width = ref(null)
 onMounted(()=>{
-  CreateIntersectionObserver('.carousel', '.card', (entries, observer)=>{
-    card_details.value=[] // clear previous data
-    entries.forEach((entry) => {
-      const { left, width } = entry.boundingClientRect
-      const ratio = entry.intersectionRatio
-      const isIntersecting = entry.isIntersecting
-      // update array of cards widths
-      card_details.value = [ ...card_details.value, { left, width, ratio, isIntersecting } ]
-    })
-    console.log(card_details.value);
-
-
-    // make sure the value is updated only once
-    if(original_card_details.value.length === 0){
-      original_card_details.value = [ ...card_details.value ]
-    }
-  })
+  getCurrentCardDetails.value = GetElemCurrentDetails('.card')
+  large_card_width.value = getCurrentCardDetails.value()[0].width+'px'
+  card_details.value = getCurrentCardDetails.value()
+  // this value is not updated. used for reference
+  original_card_details.value = getCurrentCardDetails.value()
 })
 </script>
 

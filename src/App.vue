@@ -1,12 +1,12 @@
 <template>
   <main class="w-full">
-    <Header />
+    <!-- <Header /> -->
     <RouterView v-slot="{ Component }">
       <keep-alive>
         <component :is="Component" />
       </keep-alive>
     </RouterView>
-    <Footer />
+    <!-- <Footer /> -->
   </main>
 </template>
 

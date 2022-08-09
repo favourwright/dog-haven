@@ -1,7 +1,19 @@
 <template>
   <div class="carousel">
+    <div class="flex flex-col-reverse">
+      <div
+        v-for="(card,i) in card_details"
+        :key="i"
+        :style="card.right<0 ? 'width:0; color: white;' : `width:${card.right}px;`"
+        class="h-4 odd:bg-rose-500 even:bg-yellow-500 even:text-black text-xs text-right
+        transition-all duration-500 relative
+        after:w-[1px] after:bg-white after:absolute after:right-0 after:top-0
+        after:h-40 after:z-10">
+        {{ card.right }}px;
+      </div>      
+    </div>
     <section
-      class="w-full md:w-[110%] overflow-hidden">
+      class="w-full md:w-[110%] bg-green-500/20 ">
       <div class="slides flex justify-start items-end flex-row-reverse gap-3">          
         <div
           v-for="(slide,n) in slides" :key="slide.id"
@@ -66,20 +78,49 @@ const slides = [
   }
 ]
 
-const card_gap = computed(()=>{
-  // minus the position of the last card from the position of the first
-  const container_size = Math.abs(card_details.value.slice(-1)[0].left - card_details.value[0].left)
-  // minus each card width from the container size the divide by the number of cards
-  return Math.ceil(Math.abs(
-    (container_size - card_details.value.reduce(
-      (acc, curr)=>acc + curr.width, 0)
-    ) / card_details.value.length
-  )).toFixed(3)
+const GetElemCurrentDetails = elem => {
+  const node_list = typeof(elem)==='string'?document.querySelectorAll(elem):elem
+  let details = []
+  return ()=>{
+    details = [] // clear previous data
+    node_list.forEach(node=>{
+      details = [...details, {
+        left: node.offsetLeft,
+        right: node.offsetLeft + node.offsetWidth,
+        width: node.offsetWidth,
+      }]
+    })
+    return details
+  }
+}
+
+// width of first & second child are same but different from the rest
+const large_card_width = ref(null)
+const slides_container_offset = ref(null)
+const card_gap = ref(null)
+onMounted(()=>{
+  getCurrentCardDetails.value = GetElemCurrentDetails('.card')
+  card_details.value = getCurrentCardDetails.value()
+  // this value is not updated. used for reference
+  original_card_details.value = card_details.value
+
+  card_gap.value = Math.abs(
+    card_details.value[1].left - card_details.value[0].left
+  ) - card_details.value[0].width
+
+  large_card_width.value = card_details.value[0].width
+  slides_container_offset.value = (large_card_width.value+card_gap.value)
+  // I shifted the container to the right by slides_container_offset amount
+  card_details.value = card_details.value.map((card)=>{
+    return {
+      left: card.left + slides_container_offset.value,
+      right: card.right + slides_container_offset.value,
+      width: card.width
+    }
+  })
 })
 
-const HandleSeek = (direction) => {
-  direction === -1 ? prev() : next()
-}
+const HandleSeek = (direction) => direction === -1 ? prev() : next()
 // calculate current value noting that once we reach the end we start from the beginning
 const next = () => {
   current.value = current.value === slides.length ? 1 : current.value + 1
@@ -89,21 +130,29 @@ const prev = () => {
   current.value = current.value === 1 ? slides.length : current.value - 1
   move('-', 3000)
 }
-const time_out = ref(false)
+
+const timeoutID = ref(null)
 const move = (direction, slide_duration) => {
-  if(!!time_out.value){ time_out.value = clearTimeout(time_out.value);console.log('clearing'); }
+  if(!!timeoutID.value){ clearTimeout(timeoutID.value) }
   // translate all cards by their width
   cards.value.forEach((card,i) => {
     card.style.transition = `all ${slide_duration}ms ease-in-out`
-    // card.style.transform = `translateX(calc((100% + ${card_gap.value}px) * ${direction}1))`
-    card.style.transform = `translateX(${+(direction+1) * (card_details.value[i].width + +card_gap.value)}px)`
-    time_out.value = setTimeout(() => {
-      // clear the transition after the transition is over
-      console.log('done');
-    }, slide_duration)
+    // add data-translate value to each
+    card.setAttribute("data-left", card_details.value[i].left)
+    card.setAttribute("data-right", card_details.value[i].right)
+
+    // card.style.transform = `translateX(${
+    //   card_details.value[i-1] ?
+    //     card_details.value[i-1].right+'px' : card_details.value[0].right+'px'
+    // })`
+    // card.style.transform = `translateX(${card_details.value[i].left+card_details.value[i].width}px)`
   })
-  card_details.value = getCurrentCardDetails.value()
-  console.log('card_details', card_details.value);
+  timeoutID.value = setTimeout(() => {
+    // clear the transition after the transition is over
+    cards.value.forEach((card,i) => card.style.transition = '')
+    card_details.value = getCurrentCardDetails.value()
+    console.log('done');
+  }, slide_duration)
 }
 
 // next(){
@@ -130,39 +179,13 @@ const move = (direction, slide_duration) => {
 // pauseAutoPlay(){
 //   clearInterval(this.auto_play_interval)
 // },
-
-// width of first & second child are same but different from the rest
-
-const GetElemCurrentDetails = elem => {
-  const node_list = typeof(elem)==='string'?document.querySelectorAll(elem):elem
-  let details = []
-  return ()=>{
-    details = [] // clear previous data
-    node_list.forEach(node=>{
-      const rect = node.getBoundingClientRect()
-      details = [...details, {
-        left:rect.left,
-        width:rect.width,
-      }]
-    })
-    return details
-  }
-}
-
-const large_card_width = ref(null)
-onMounted(()=>{
-  getCurrentCardDetails.value = GetElemCurrentDetails('.card')
-  large_card_width.value = getCurrentCardDetails.value()[0].width+'px'
-  card_details.value = getCurrentCardDetails.value()
-  // this value is not updated. used for reference
-  original_card_details.value = getCurrentCardDetails.value()
-})
 </script>
 
 <style scoped>
 /* move container over to hide the first(from the right) element*/
 .slides{
-  transform: translateX(v-bind(large_card_width))
+  transform: translateX(v-bind(slides_container_offset+'px'));
+  /* transform: translateX(v-bind(large_card_width)) */
 }
 
 .slides > .card:nth-of-type(1).bigger,
